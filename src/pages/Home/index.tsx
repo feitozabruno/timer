@@ -12,8 +12,6 @@ import { NewCycleForm } from "./components/NewCycleForm";
 import { Countdown } from "./components/Countdown";
 import { CyclesContext } from "../../contexts/CyclesContext";
 
-type NewCycleFormData = zod.infer<typeof newCycleFormValidationSchema>;
-
 export function Home() {
   const { activeCycle, createNewCycle, interruptCurrentCycle } =
     useContext(CyclesContext);
@@ -25,6 +23,8 @@ export function Home() {
       .min(5, "O ciclo precisa ser de no mínimo 5 minutos")
       .max(60, "O ciclo precisa ser de no máximo 60 minutos"),
   });
+  
+  type NewCycleFormData = zod.infer<typeof newCycleFormValidationSchema>;
 
   const newCycleForm = useForm<NewCycleFormData>({
     resolver: zodResolver(newCycleFormValidationSchema),
